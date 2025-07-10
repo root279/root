@@ -48,21 +48,9 @@ export const getAllProductsCategoriesService = async () => {
 };
 
 export const getProductsOnSearch = async ({ query }) => {
-  try {
-    const res = await axios.get(`/api/products/search?query=${query}`);
-    
-    // Validar que la respuesta tenga la estructura esperada
-    if (res.data && Array.isArray(res.data.products)) {
-      return res.data.products;
-    }
-    
-    // Si no tiene la estructura esperada, retornar array vacío
-    console.warn('Respuesta de búsqueda no tiene la estructura esperada:', res.data);
-    return [];
-  } catch (error) {
-    console.error('Error en búsqueda de productos:', error);
-    return [];
-  }
+  const res = await axios.get(`/api/products/search?query=${query}`);
+
+  return res.data.products.models;
 };
 
 export const getSingleProductService = async (productID) => {

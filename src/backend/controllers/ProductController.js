@@ -38,11 +38,6 @@ export const getProductHandler = function (schema, request) {
 export const searchProductsHandler = function (schema, request) {
   const query = request.queryParams.query;
 
-  // Validar que query existe y no está vacío
-  if (!query || typeof query !== 'string' || query.trim().length === 0) {
-    return new Response(200, {}, { products: [] });
-  }
-
   try {
     let products = schema.products.where((product) =>
       product.name.toLowerCase().startsWith(query.toLowerCase())
@@ -57,16 +52,13 @@ export const searchProductsHandler = function (schema, request) {
     const limitedProducts =
       products.length > 10 ? products.slice(0, 10) : products;
 
-    // Asegurar que siempre retornamos un array
     return new Response(200, {}, { products: limitedProducts });
   } catch (error) {
-    console.error('Error en searchProductsHandler:', error);
     return new Response(
       500,
       {},
       {
-        error: error.message || 'Error en la búsqueda',
-        products: [] // Incluir array vacío incluso en errores
+        error,
       }
     );
   }

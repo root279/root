@@ -65,20 +65,16 @@ const useSearchSuggestions = ({
   const fetchProductsOnSearch = async () => {
     try {
       const resProducts = await getProductsOnSearch({ query: trimmedSearch });
-      // Asegurar que siempre sea un array
-      setSuggestionsList(Array.isArray(resProducts) ? resProducts : []);
+      setSuggestionsList(resProducts);
       setIsSuggestionsLoading(false);
 
-      if (!Array.isArray(resProducts) || resProducts.length < 1) {
+      if (resProducts.length < 1) {
         return;
       }
 
       updateCache(resProducts);
     } catch (error) {
       console.log(error);
-      // En caso de error, establecer como array vacío
-      setSuggestionsList([]);
-      setIsSuggestionsLoading(false);
     }
   };
 
@@ -91,8 +87,7 @@ const useSearchSuggestions = ({
 
     const timer = setTimeout(() => {
       if (cacheSuggestions[trimmedSearch]) {
-        const cachedProducts = cacheSuggestions[trimmedSearch].productsCached;
-        setSuggestionsList(Array.isArray(cachedProducts) ? cachedProducts : []);
+        setSuggestionsList(cacheSuggestions[trimmedSearch].productsCached);
         // update time of that cache, if the query is re-searched and cache is present (searched again)
         setCacheSuggestions({
           ...cacheSuggestions,
@@ -116,7 +111,6 @@ const useSearchSuggestions = ({
   useEffect(() => {
     if (!filtersStateFromContext.search) {
       setSearchText('');
-      setSuggestionsList([]); // Limpiar sugerencias cuando no hay búsqueda
     }
   }, [filtersStateFromContext]);
 

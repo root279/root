@@ -8,9 +8,6 @@ const Suggestions = ({
   isSuggestionsLoading,
   updateTextOnLinkClick,
 }) => {
-  // Validar que suggestionsList sea un array
-  const validSuggestionsList = Array.isArray(suggestionsList) ? suggestionsList : [];
-
   if (isSuggestionsLoading)
     return (
       <section className={styles.suggestions}>
@@ -32,7 +29,7 @@ const Suggestions = ({
     );
   }
 
-  if (validSuggestionsList.length < 1) {
+  if (suggestionsList.length < 1) {
     return (
       <section className={styles.suggestions}>
         <div className='horizontal-center'>
@@ -44,7 +41,7 @@ const Suggestions = ({
 
   return (
     <section className={styles.suggestions}>
-      {validSuggestionsList.map((item) => (
+      {suggestionsList.map((item) => (
         <button
           type='button'
           // navigates after onClick
