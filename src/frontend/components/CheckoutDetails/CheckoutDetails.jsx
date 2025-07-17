@@ -341,9 +341,8 @@ const CheckoutDetails = ({
     console.log('📱 Dispositivo:', device);
     console.log('📞 Número de WhatsApp:', storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
     
-    // Incluir imagen de la tienda al inicio del mensaje con URL completa y responsiva
-    let message = `🏪 *YERO SHOP!* - Tu tienda online de confianza\n`;
-    message += `📸 Logo de la tienda: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png\n\n`;
+    // Mensaje principal sin URL de imagen (la imagen se enviará por separado)
+    let message = `🏪 *YERO SHOP!* - Tu tienda online de confianza\n\n`;
     
     // Número de orden con diseño moderno y animado
     message += `✨ ═══════════════════════════════════ ✨\n`;
@@ -450,7 +449,12 @@ const CheckoutDetails = ({
     message += `Su satisfacción es nuestra prioridad 💯`;
 
     // Generar URLs según el dispositivo
-    const whatsappUrls = generateWhatsAppURL(message, storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
+    const phoneNumber = storeConfig.storeInfo?.whatsappNumber || '+53 54690878';
+    
+    // NUEVA ESTRATEGIA: Enviar imagen primero, luego el mensaje
+    const imageUrl = 'https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png';
+    const whatsappImageUrls = generateWhatsAppImageURL(imageUrl, phoneNumber);
+    const whatsappMessageUrls = generateWhatsAppURL(message, phoneNumber);
     
     // Mostrar notificación específica según el dispositivo
     if (device.isIOS) {
@@ -469,36 +473,104 @@ const CheckoutDetails = ({
       toastHandler(ToastType.Info, `💻 Abriendo WhatsApp...`);
     }
     
-    // Intentar abrir WhatsApp con múltiples métodos
-    const success = await tryOpenWhatsApp(whatsappUrls, orderNumber, storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
+    // NUEVA ESTRATEGIA: Intentar enviar imagen primero
+    toastHandler(ToastType.Info, '📸 Preparando imagen del logo...');
     
-    if (success) {
-      console.log('✅ WhatsApp abierto exitosamente');
-      toastHandler(ToastType.Success, `✅ Pedido #${orderNumber} enviado a WhatsApp exitosamente`);
-    } else {
-      console.log('❌ No se pudo abrir WhatsApp automáticamente');
+    // Intentar abrir WhatsApp con imagen primero
+    const imageSuccess = await tryOpenWhatsAppWithImage(whatsappImageUrls, orderNumber, phoneNumber);
+    
+    // Esperar un momento antes de enviar el mensaje
+    setTimeout(async () => {
+      toastHandler(ToastType.Info, '📝 Enviando detalles del pedido...');
+      const messageSuccess = await tryOpenWhatsApp(whatsappMessageUrls, orderNumber, phoneNumber);
       
-      // Fallback: mostrar información manual
-      let fallbackMessage = `📱 Por favor, abre WhatsApp manualmente y contacta a ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'} con el pedido #${orderNumber}`;
-      
-      if (device.isDesktop) {
-        fallbackMessage = `💻 Por favor, abre WhatsApp Web (web.whatsapp.com) o la aplicación de escritorio y contacta a ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'} con el pedido #${orderNumber}`;
+      if (imageSuccess || messageSuccess) {
+        console.log('✅ WhatsApp abierto exitosamente');
+        toastHandler(ToastType.Success, `✅ Pedido #${orderNumber} enviado a WhatsApp exitosamente`);
+        toastHandler(ToastType.Info, '📸 Logo de la tienda enviado por separado para mejor visualización');
+      } else {
+        handleWhatsAppFallback(orderNumber, phoneNumber);
       }
-      
-      toastHandler(ToastType.Warn, fallbackMessage);
-      
-      // Copiar número al portapapeles como ayuda adicional
+    }, 3000); // Esperar 3 segundos entre imagen y mensaje
+    
+    
+    return orderNumber;
+  };
+
+  // NUEVA FUNCIÓN: Generar URL de WhatsApp para enviar imagen
+  const generateWhatsAppImageURL = (imageUrl, phoneNumber) => {
+    const device = detectDevice();
+    const cleanPhone = phoneNumber.replace(/[^\d+]/g, '');
+    
+    // Mensaje simple para acompañar la imagen
+    const imageMessage = encodeURIComponent('🏪 Logo de YERO SHOP! - Tu tienda online de confianza');
+    
+    const urls = [];
+    
+    // Para dispositivos móviles: intentar app nativa
+    if (device.isMobile || device.isTablet) {
+      urls.push(`whatsapp://send?phone=${cleanPhone}&text=${imageMessage}`);
+    }
+    
+    // URLs web universales
+    urls.push(`https://wa.me/${cleanPhone}?text=${imageMessage}`);
+    urls.push(`https://web.whatsapp.com/send?phone=${cleanPhone}&text=${imageMessage}`);
+    urls.push(`https://api.whatsapp.com/send?phone=${cleanPhone}&text=${imageMessage}`);
+    
+    return urls;
+  };
+
+  // NUEVA FUNCIÓN: Intentar abrir WhatsApp con imagen
+  const tryOpenWhatsAppWithImage = async (urls, orderNumber, phoneNumber) => {
+    console.log('📸 Intentando enviar imagen del logo...');
+    
+    // Usar el primer URL disponible
+    if (urls.length > 0) {
       try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
-          toastHandler(ToastType.Info, `📋 Número de WhatsApp copiado: ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'}`);
+        const url = urls[0];
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+        
+        if (newWindow) {
+          console.log('✅ Ventana de WhatsApp para imagen abierta');
+          
+          // Mostrar instrucciones al usuario
+          toastHandler(ToastType.Info, '📸 Por favor, envía manualmente la imagen del logo desde la galería de tu dispositivo');
+          toastHandler(ToastType.Info, '🔗 URL de la imagen: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png');
+          
+          return true;
         }
       } catch (error) {
-        console.log('No se pudo copiar al portapapeles:', error);
+        console.log('Error al abrir WhatsApp para imagen:', error);
       }
     }
     
-    return orderNumber;
+    return false;
+  };
+
+  // FUNCIÓN DE FALLBACK mejorada
+  const handleWhatsAppFallback = async (orderNumber, phoneNumber) => {
+    console.log('❌ No se pudo abrir WhatsApp automáticamente');
+    
+    const device = detectDevice();
+    let fallbackMessage = `📱 Por favor, abre WhatsApp manualmente y contacta a ${phoneNumber} con el pedido #${orderNumber}`;
+    
+    if (device.isDesktop) {
+      fallbackMessage = `💻 Por favor, abre WhatsApp Web (web.whatsapp.com) o la aplicación de escritorio y contacta a ${phoneNumber} con el pedido #${orderNumber}`;
+    }
+    
+    toastHandler(ToastType.Warn, fallbackMessage);
+    toastHandler(ToastType.Info, '📸 No olvides enviar también el logo de la tienda desde: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png');
+    
+    // Copiar información al portapapeles
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        const clipboardContent = `WhatsApp: ${phoneNumber}\nPedido: #${orderNumber}\nLogo: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png`;
+        await navigator.clipboard.writeText(clipboardContent);
+        toastHandler(ToastType.Info, `📋 Información copiada al portapapeles`);
+      }
+    } catch (error) {
+      console.log('No se pudo copiar al portapapeles:', error);
+    }
   };
 
   const handlePlaceOrder = async () => {
