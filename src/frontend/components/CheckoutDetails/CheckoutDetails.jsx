@@ -30,7 +30,6 @@ const CheckoutDetails = ({
 
   const { storeConfig } = useConfigContext();
   const { formatPriceWithCode, getCurrentCurrency, convertFromCUP } = useCurrencyContext();
-  const STORE_WHATSAPP = storeConfig.storeInfo?.whatsappNumber || '+53 54690878';
   const SANTIAGO_ZONES = storeConfig.zones || [];
 
   const {
@@ -340,9 +339,18 @@ const CheckoutDetails = ({
     
     console.log('🚀 Iniciando envío a WhatsApp...');
     console.log('📱 Dispositivo:', device);
-    console.log('📞 Número de WhatsApp:', STORE_WHATSAPP);
+    console.log('📞 Número de WhatsApp:', storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
     
-    let message = `🛒 *NUEVO PEDIDO #${orderNumber}*\n\n`;
+    // Incluir imagen de la tienda al inicio del mensaje con URL completa y responsiva
+    let message = `🏪 *YERO SHOP!* - Tu tienda online de confianza\n`;
+    message += `📸 Logo de la tienda: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png\n\n`;
+    
+    // Número de orden con diseño moderno y animado
+    message += `✨ ═══════════════════════════════════ ✨\n`;
+    message += `🎯 *NUEVO PEDIDO*\n`;
+    message += `🔥 *#${orderNumber}* 🔥\n`;
+    message += `✨ ═══════════════════════════════════ ✨\n\n`;
+    
     message += `---------------------------------------------------------------\n`;
     message += `👤 *INFORMACIÓN DEL CLIENTE*\n`;
     message += `---------------------------------------------------------------\n`;
@@ -353,6 +361,8 @@ const CheckoutDetails = ({
     // Información del servicio con mejor formato
     message += `🚚 *DETALLES DE ENTREGA*\n`;
     message += `---------------------------------------------------------------\n`;
+    message += `👤 *Nombre Completo del Cliente:* ${selectedAddress.username}\n`;
+    message += `📱 *Número de Móvil del Cliente:* ${selectedAddress.mobile}\n`;
     
     if (selectedAddress.serviceType === SERVICE_TYPES.HOME_DELIVERY) {
       const zoneName = SANTIAGO_ZONES.find(z => z.id === selectedAddress.zone)?.name;
@@ -370,7 +380,7 @@ const CheckoutDetails = ({
       }
     }
     
-    message += `📞 *Teléfono de contacto:* ${selectedAddress.mobile}\n\n`;
+    message += `\n`;
     
     // Productos con iconos y mejor formato
     message += `🛍️ *PRODUCTOS SOLICITADOS*\n`;
@@ -418,6 +428,12 @@ const CheckoutDetails = ({
       timeZone: 'America/Havana'
     })}\n\n`;
     
+    // Número de orden destacado al final
+    message += `🎯 *NÚMERO DE PEDIDO PARA REFERENCIA:*\n`;
+    message += `🌟 ═══════════════════════════════════ 🌟\n`;
+    message += `🔥 *#${orderNumber}* 🔥\n`;
+    message += `🌟 ═══════════════════════════════════ 🌟\n\n`;
+    
     message += `📋 *Instrucciones importantes:*\n`;
     message += `• Confirme la disponibilidad de los productos\n`;
     message += `• Verifique la dirección de entrega\n`;
@@ -428,13 +444,13 @@ const CheckoutDetails = ({
     message += `🏪 *Yero Shop!*\n`;
     message += `"La tienda online de compras hecha a tu medida" ✨\n`;
     message += `📍 Santiago de Cuba, Cuba\n`;
-    message += `📱 WhatsApp: ${STORE_WHATSAPP}\n`;
+    message += `📱 WhatsApp: ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'}\n`;
     message += `🌐 Tienda online: https://yeroshop.vercel.app\n\n`;
     message += `¡Gracias por confiar en nosotros! 🙏\n`;
     message += `Su satisfacción es nuestra prioridad 💯`;
 
     // Generar URLs según el dispositivo
-    const whatsappUrls = generateWhatsAppURL(message, STORE_WHATSAPP);
+    const whatsappUrls = generateWhatsAppURL(message, storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
     
     // Mostrar notificación específica según el dispositivo
     if (device.isIOS) {
@@ -454,7 +470,7 @@ const CheckoutDetails = ({
     }
     
     // Intentar abrir WhatsApp con múltiples métodos
-    const success = await tryOpenWhatsApp(whatsappUrls, orderNumber, STORE_WHATSAPP);
+    const success = await tryOpenWhatsApp(whatsappUrls, orderNumber, storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
     
     if (success) {
       console.log('✅ WhatsApp abierto exitosamente');
@@ -463,10 +479,10 @@ const CheckoutDetails = ({
       console.log('❌ No se pudo abrir WhatsApp automáticamente');
       
       // Fallback: mostrar información manual
-      let fallbackMessage = `📱 Por favor, abre WhatsApp manualmente y contacta a ${STORE_WHATSAPP} con el pedido #${orderNumber}`;
+      let fallbackMessage = `📱 Por favor, abre WhatsApp manualmente y contacta a ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'} con el pedido #${orderNumber}`;
       
       if (device.isDesktop) {
-        fallbackMessage = `💻 Por favor, abre WhatsApp Web (web.whatsapp.com) o la aplicación de escritorio y contacta a ${STORE_WHATSAPP} con el pedido #${orderNumber}`;
+        fallbackMessage = `💻 Por favor, abre WhatsApp Web (web.whatsapp.com) o la aplicación de escritorio y contacta a ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'} con el pedido #${orderNumber}`;
       }
       
       toastHandler(ToastType.Warn, fallbackMessage);
@@ -474,8 +490,8 @@ const CheckoutDetails = ({
       // Copiar número al portapapeles como ayuda adicional
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(STORE_WHATSAPP);
-          toastHandler(ToastType.Info, `📋 Número de WhatsApp copiado: ${STORE_WHATSAPP}`);
+          await navigator.clipboard.writeText(storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
+          toastHandler(ToastType.Info, `📋 Número de WhatsApp copiado: ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'}`);
         }
       } catch (error) {
         console.log('No se pudo copiar al portapapeles:', error);
