@@ -341,15 +341,22 @@ const CheckoutDetails = ({
     console.log('📱 Dispositivo:', device);
     console.log('📞 Número de WhatsApp:', storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
     
-    // Incluir imagen de la tienda al inicio del mensaje
+    // LOGO Y HEADER PRINCIPAL CON IMAGEN OPTIMIZADA
     let message = `🏪 *YERO SHOP!* - Tu tienda online de confianza\n`;
-    message += `📸 Imagen: ${window.location.origin}/lovepik.png\n\n`;
+    message += `📸 Logo: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png\n`;
+    message += `🌐 Tienda: ${window.location.origin}\n\n`;
+    
+    // BANNER VISUAL MEJORADO
+    message += `╔══════════════════════════════════════╗\n`;
+    message += `║  🛍️ YERO SHOP - PEDIDO CONFIRMADO 🛍️  ║\n`;
+    message += `║     ✨ Tu tienda de confianza ✨      ║\n`;
+    message += `╚══════════════════════════════════════╝\n\n`;
     
     // Número de orden con diseño moderno y animado
-    message += `✨ ═══════════════════════════════════ ✨\n`;
-    message += `🎯 *NUEVO PEDIDO*\n`;
-    message += `🔥 *#${orderNumber}* 🔥\n`;
-    message += `✨ ═══════════════════════════════════ ✨\n\n`;
+    message += `🎯 ═══════════════════════════════════ 🎯\n`;
+    message += `🔥 *NUEVO PEDIDO #${orderNumber}* 🔥\n`;
+    message += `📅 ${new Date().toLocaleDateString('es-CU')}\n`;
+    message += `🎯 ═══════════════════════════════════ 🎯\n\n`;
     
     message += `---------------------------------------------------------------\n`;
     message += `👤 *INFORMACIÓN DEL CLIENTE*\n`;
