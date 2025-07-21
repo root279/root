@@ -31,21 +31,6 @@ export const signupHandler = function (schema, request) {
 
     // Validar que el dominio del email sea válido
     const emailDomain = email.split('@')[1].toLowerCase();
-    const validDomains = [
-      // Proveedores principales
-      'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com',
-      // Proveedores internacionales
-      'icloud.com', 'me.com', 'mac.com', 'aol.com', 'protonmail.com',
-      'yandex.com', 'mail.ru', 'qq.com', '163.com', 'sina.com',
-      // Proveedores empresariales
-      'company.com', 'business.com', 'corp.com', 'enterprise.com',
-      // Proveedores educativos
-      'edu', 'ac.uk', 'edu.cu', 'uo.edu.cu', 'uho.edu.cu',
-      // Proveedores cubanos
-      'nauta.cu', 'estudiantes.cu', 'infomed.sld.cu',
-      // Otros proveedores comunes
-      'zoho.com', 'fastmail.com', 'tutanota.com', 'gmx.com', 'web.de'
-    ];
 
     // Permitir cualquier dominio que tenga al menos un punto y una extensión válida
     const domainParts = emailDomain.split('.');

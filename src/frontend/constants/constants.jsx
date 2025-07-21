@@ -1,6 +1,5 @@
 import { AiFillLinkedin, AiOutlineTwitter } from 'react-icons/ai';
 import { MdOutlineFacebook } from 'react-icons/md';
-import { v4 as uuid } from 'uuid';
 
 export const FOOTER_LINKS = [
   {
