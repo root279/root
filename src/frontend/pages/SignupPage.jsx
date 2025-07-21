@@ -49,9 +49,16 @@ const SignupPage = () => {
     }
 
     // Validación de formato de email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(userInputs.email.trim())) {
-      toastHandler(ToastType.Error, 'Por favor ingresa un email válido');
+      toastHandler(ToastType.Error, 'Por favor ingresa un email válido de cualquier proveedor');
+      return;
+    }
+
+    // Validar que el dominio tenga una estructura válida
+    const emailDomain = userInputs.email.trim().split('@')[1];
+    if (!emailDomain || emailDomain.split('.').length < 2) {
+      toastHandler(ToastType.Error, 'El dominio del email no es válido');
       return;
     }
 
@@ -149,7 +156,7 @@ const SignupPage = () => {
           type='email'
           name='email'
           id='email'
-          placeholder='tu-email@ejemplo.com'
+          placeholder='tu-email@gmail.com, @yahoo.com, @hotmail.com...'
           value={userInputs.email}
           handleChange={handleInputChange}
           disabled={isSignupFormLoading}

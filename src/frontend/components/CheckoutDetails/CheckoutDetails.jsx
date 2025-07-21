@@ -341,159 +341,94 @@ const CheckoutDetails = ({
     console.log('📱 Dispositivo:', device);
     console.log('📞 Número de WhatsApp:', storeConfig.storeInfo?.whatsappNumber || '+53 54690878');
     
-    // LOGO Y HEADER PRINCIPAL CON IMAGEN OPTIMIZADA PARA VISTA PREVIA
-    let message = `https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png\n\n`;
+    // CATÁLOGO PROFESIONAL CON IMAGEN DE LA TIENDA
+    let message = `🏪 *YERO SHOP!* - Tu tienda online de confianza\n`;
+    message += `📸 Imagen del catálogo: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png\n\n`;
     
-    // HEADER PRINCIPAL CON DISEÑO DE CATÁLOGO PROFESIONAL
-    message += `🏪✨ *YERO SHOP!* ✨🏪\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `🌟 *"Tu tienda online de confianza"* 🌟\n`;
-    message += `🌐 ${window.location.origin}\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    // Separador visual profesional
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🛍️ *CATÁLOGO DIGITAL PROFESIONAL* 🛍️\n`;
+    message += `═══════════════════════════════════════════════════════════════\n\n`;
     
-    // BANNER DE PEDIDO CONFIRMADO CON ESTILO CATÁLOGO
-    message += `🎉 ═══════════════════════════════════ 🎉\n`;
-    message += `🛍️ *PEDIDO CONFIRMADO EXITOSAMENTE* 🛍️\n`;
-    message += `🎉 ═══════════════════════════════════ 🎉\n\n`;
+    // Número de orden con diseño moderno y animado
+    message += `✨ ═══════════════════════════════════ ✨\n`;
+    message += `🎯 *NUEVO PEDIDO*\n`;
+    message += `🔥 *#${orderNumber}* 🔥\n`;
+    message += `✨ ═══════════════════════════════════ ✨\n\n`;
     
-    // INFORMACIÓN DE PEDIDO CON DISEÑO PREMIUM
-    message += `🏷️ *INFORMACIÓN DEL PEDIDO*\n`;
-    message += `┌─────────────────────────────────────┐\n`;
-    message += `│ 🆔 *Número:* #${orderNumber}        │\n`;
-    message += `│ 📅 *Fecha:* ${new Date().toLocaleDateString('es-CU', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })} │\n`;
-    message += `│ ⏰ *Hora:* ${new Date().toLocaleTimeString('es-CU', {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'America/Havana'
-    })}                    │\n`;
-    message += `│ 💱 *Moneda:* ${currency.flag} ${currency.code}              │\n`;
-    message += `└─────────────────────────────────────┘\n\n`;
-    
-    // INFORMACIÓN DEL CLIENTE CON ESTILO MODERNO
-    message += `👤 *DATOS DEL CLIENTE*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `👤 *INFORMACIÓN DEL CLIENTE*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
     message += `📝 *Nombre Completo:* ${firstName} ${lastName}\n`;
     message += `📧 *Correo Electrónico:* ${email}\n`;
-    message += `📱 *Teléfono de Contacto:* ${selectedAddress.mobile}\n\n`;
+    message += `💱 *Moneda seleccionada:* ${currency.flag} ${currency.name} (${currency.code})\n\n`;
     
-    // DETALLES DE ENTREGA CON ICONOS TEMÁTICOS
-    message += `🚚 *INFORMACIÓN DE ENTREGA*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    // Información del servicio con mejor formato
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🚚 *DETALLES DE ENTREGA*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `👤 *Nombre Completo del Cliente:* ${selectedAddress.username}\n`;
+    message += `📱 *Número de Móvil del Cliente:* ${selectedAddress.mobile}\n`;
     
     if (selectedAddress.serviceType === SERVICE_TYPES.HOME_DELIVERY) {
       const zoneName = SANTIAGO_ZONES.find(z => z.id === selectedAddress.zone)?.name;
-      message += `🏠 *Modalidad:* 🚚 Entrega a domicilio\n`;
+      message += `📦 *Modalidad:* Entrega a domicilio\n`;
       message += `📍 *Zona de entrega:* ${zoneName}\n`;
-      message += `🗺️ *Dirección completa:* ${selectedAddress.addressInfo}\n`;
+      message += `🏠 *Dirección completa:* ${selectedAddress.addressInfo}\n`;
       message += `👤 *Persona que recibe:* ${selectedAddress.receiverName}\n`;
-      message += `☎️ *Teléfono del receptor:* ${selectedAddress.receiverPhone}\n`;
-      message += `💵 *Costo de entrega:* ${formatPriceWithCode(deliveryCost)}\n`;
+      message += `📱 *Teléfono del receptor:* ${selectedAddress.receiverPhone}\n`;
+      message += `💰 *Costo de entrega:* ${formatPriceWithCode(deliveryCost)}\n`;
     } else {
-      message += `🏪 *Modalidad:* 📦 Recoger en tienda\n`;
-      message += `📍 *Ubicación:* Yero Shop! - Santiago de Cuba\n`;
-      message += `🕐 *Horario:* Coordinar con la tienda\n`;
+      message += `📦 *Modalidad:* Recoger en tienda\n`;
+      message += `🏪 *Ubicación:* Yero Shop! - Santiago de Cuba\n`;
       if (selectedAddress.additionalInfo) {
-        message += `💬 *Información adicional:* ${selectedAddress.additionalInfo}\n`;
+        message += `📝 *Información adicional:* ${selectedAddress.additionalInfo}\n`;
       }
     }
     
     message += `\n`;
     
-    // CATÁLOGO DE PRODUCTOS CON DISEÑO PREMIUM
-    message += `🛍️ *CATÁLOGO DE PRODUCTOS SOLICITADOS*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    
+    // Productos con iconos y mejor formato
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🛍️ *PRODUCTOS SOLICITADOS*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
     cartFromContext.forEach((item, index) => {
       const productIcon = getProductIcon(item.category);
       const colorHex = item.colors[0]?.color || '#000000';
       const subtotal = item.price * item.qty;
-      const discountPercent = calculateDiscountPercent(item.price, item.originalPrice);
       
-      // HEADER DEL PRODUCTO CON NUMERACIÓN ELEGANTE
-      message += `┌─ 🏷️ *PRODUCTO #${index + 1}* ─────────────────────┐\n`;
-      message += `│                                                │\n`;
-      message += `│ ${productIcon} *${item.name}*\n`;
-      message += `│                                                │\n`;
-      
-      // DETALLES DEL PRODUCTO CON ICONOS ESPECÍFICOS
-      message += `│ 🏷️ *Categoría:* ${item.category}               │\n`;
-      message += `│ 🏢 *Marca:* ${item.company}                    │\n`;
-      message += `│ 🎨 *Color seleccionado:* ${colorHex}           │\n`;
-      message += `│ 📦 *Cantidad:* ${item.qty} unidad${item.qty > 1 ? 'es' : ''}             │\n`;
-      message += `│                                                │\n`;
-      
-      // INFORMACIÓN DE PRECIOS CON FORMATO PROFESIONAL
-      message += `│ 💰 *PRECIOS:*                                  │\n`;
-      if (discountPercent > 0) {
-        message += `│ 💸 *Precio original:* ${formatPriceWithCode(item.originalPrice)}        │\n`;
-        message += `│ 🏷️ *Precio con descuento:* ${formatPriceWithCode(item.price)}          │\n`;
-        message += `│ 🎉 *Descuento aplicado:* ${discountPercent}%              │\n`;
-      } else {
-        message += `│ 💵 *Precio unitario:* ${formatPriceWithCode(item.price)}               │\n`;
-      }
-      message += `│ 💎 *Subtotal:* ${formatPriceWithCode(subtotal)}                     │\n`;
-      message += `│                                                │\n`;
-      
-      // CARACTERÍSTICAS ADICIONALES
-      message += `│ ⭐ *Calificación:* ${item.stars}/5 (${item.reviewCount} reseñas)     │\n`;
-      message += `│ 📦 *Stock disponible:* ${item.colors[0]?.colorQuantity || 0} unidades      │\n`;
-      message += `│ 🚚 *Envío:* ${item.isShippingAvailable ? 'Disponible' : 'No disponible'}           │\n`;
-      message += `│                                                │\n`;
-      message += `└────────────────────────────────────────────────┘\n\n`;
+      message += `${index + 1}. ${productIcon} *${item.name}*\n`;
+      message += `   🎨 *Color:* ${colorHex}\n`;
+      message += `   📊 *Cantidad:* ${item.qty} unidad${item.qty > 1 ? 'es' : ''}\n`;
+      message += `   💵 *Precio unitario:* ${formatPriceWithCode(item.price)}\n`;
+      message += `   💰 *Subtotal:* ${formatPriceWithCode(subtotal)}\n`;
+      message += `   ═══════════════════════════════════════════════════════\n`;
     });
     
-    // RESUMEN FINANCIERO CON DISEÑO PREMIUM
-    message += `💳 *RESUMEN FINANCIERO DETALLADO*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `┌─────────────────────────────────────┐\n`;
-    message += `│ 🛍️ *Subtotal productos:*            │\n`;
-    message += `│    ${formatPriceWithCode(totalAmountFromContext)}                        │\n`;
-    message += `│                                     │\n`;
+    // Resumen financiero profesional
+    message += `\n═══════════════════════════════════════════════════════════════\n`;
+    message += `\n💳 *RESUMEN FINANCIERO*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🛍️ *Subtotal productos:* ${formatPriceWithCode(totalAmountFromContext)}\n`;
     
     if (activeCoupon) {
-      message += `│ 🎫 *Cupón de descuento aplicado:*   │\n`;
-      message += `│    Código: ${activeCoupon.couponCode}              │\n`;
-      message += `│    Descuento: ${activeCoupon.discountPercent}%                │\n`;
-      message += `│    Ahorro: -${formatPriceWithCode(Math.abs(priceAfterCouponApplied))}              │\n`;
-      message += `│                                     │\n`;
+      message += `🎫 *Descuento aplicado (${activeCoupon.couponCode} - ${activeCoupon.discountPercent}%):* -${formatPriceWithCode(Math.abs(priceAfterCouponApplied))}\n`;
     }
     
     if (deliveryCost > 0) {
-      message += `│ 🚚 *Costo de entrega:*              │\n`;
-      message += `│    ${formatPriceWithCode(deliveryCost)}                        │\n`;
-      message += `│                                     │\n`;
-    } else {
-      message += `│ 🆓 *Entrega:* Sin costo adicional   │\n`;
-      message += `│                                     │\n`;
+      message += `🚚 *Costo de entrega:* ${formatPriceWithCode(deliveryCost)}\n`;
     }
     
-    message += `├─────────────────────────────────────┤\n`;
-    message += `│ 💎 *TOTAL A PAGAR:*                 │\n`;
-    message += `│    ${formatPriceWithCode(finalPriceToPay)}                        │\n`;
-    message += `│ 💱 *Moneda:* ${currency.flag} ${currency.name} (${currency.code})      │\n`;
-    message += `└─────────────────────────────────────┘\n\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `💰 *TOTAL A PAGAR: ${formatPriceWithCode(finalPriceToPay)}*\n`;
+    message += `💱 *Moneda: ${currency.flag} ${currency.name} (${currency.code})*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n\n`;
     
-    // ESTADÍSTICAS DEL PEDIDO
-    message += `📊 *ESTADÍSTICAS DEL PEDIDO*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `🔢 *Total de productos:* ${cartFromContext.length} tipo${cartFromContext.length > 1 ? 's' : ''} diferentes\n`;
-    message += `📦 *Cantidad total:* ${totalCountFromContext} unidad${totalCountFromContext > 1 ? 'es' : ''}\n`;
-    message += `💰 *Valor promedio por producto:* ${formatPriceWithCode(Math.round(totalAmountFromContext / cartFromContext.length))}\n`;
-    if (activeCoupon) {
-      message += `🎉 *Ahorro total con cupón:* ${formatPriceWithCode(Math.abs(priceAfterCouponApplied))}\n`;
-    }
-    message += `🚚 *Método de entrega:* ${selectedAddress.serviceType === SERVICE_TYPES.HOME_DELIVERY ? 'Domicilio' : 'Recogida en tienda'}\n\n`;
-    
-    // INFORMACIÓN DE SEGUIMIENTO
-    message += `📋 *INFORMACIÓN DE SEGUIMIENTO*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `🆔 *Número de referencia:* #${orderNumber}\n`;
-    message += `📅 *Fecha completa:* ${new Date().toLocaleString('es-CU', {
+    // Información adicional profesional
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `📅 *Fecha y hora del pedido:*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `${new Date().toLocaleString('es-CU', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -501,46 +436,41 @@ const CheckoutDetails = ({
       hour: '2-digit',
       minute: '2-digit',
       timeZone: 'America/Havana'
-    })}\n`;
-    message += `🌍 *Zona horaria:* Cuba (GMT-5)\n`;
-    message += `💻 *Plataforma:* ${device.isMobile ? '📱 Móvil' : device.isTablet ? '📱 Tablet' : '💻 Escritorio'} (${device.isIOS ? 'iOS' : device.isAndroid ? 'Android' : device.isWindows ? 'Windows' : device.isMacOS ? 'macOS' : device.isLinux ? 'Linux' : 'Otro'})\n\n`;
+    })}\n\n`;
     
-    // PRÓXIMOS PASOS CON DISEÑO ATRACTIVO
-    message += `🚀 *PRÓXIMOS PASOS*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `✅ 1. Confirmaremos la disponibilidad de productos\n`;
-    message += `✅ 2. Verificaremos los datos de entrega\n`;
-    message += `✅ 3. Coordinaremos horario de entrega/recogida\n`;
-    message += `✅ 4. Te enviaremos confirmación final\n`;
-    message += `✅ 5. Procesaremos tu pedido con máxima prioridad\n\n`;
+    // Número de orden destacado al final
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🎯 *NÚMERO DE PEDIDO PARA REFERENCIA:*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🌟 ═══════════════════════════════════ 🌟\n`;
+    message += `🔥 *#${orderNumber}* 🔥\n`;
+    message += `🌟 ═══════════════════════════════════ 🌟\n\n`;
     
-    // INFORMACIÓN IMPORTANTE CON ICONOS LLAMATIVOS
-    message += `⚠️ *INFORMACIÓN IMPORTANTE*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `🔖 Guarda este número de pedido: *#${orderNumber}*\n`;
-    message += `💱 Todos los precios están en ${currency.flag} ${currency.name} (${currency.code})\n`;
-    message += `⏰ Tiempo estimado de respuesta: 30 minutos\n`;
-    message += `📞 Para consultas urgentes, llama al mismo número\n`;
-    message += `🔄 Cambios en el pedido: Contactar antes de 1 hora\n\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `📋 *Instrucciones importantes:*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `• Confirme la disponibilidad de los productos\n`;
+    message += `• Verifique la dirección de entrega\n`;
+    message += `• Coordine horario de entrega/recogida\n`;
+    message += `• Mantenga este número de pedido para referencia\n`;
+    message += `• Los precios están en ${currency.name} (${currency.code})\n\n`;
     
-    // FOOTER CORPORATIVO CON DISEÑO ELEGANTE
-    message += `🏪 ═══════════════════════════════════ 🏪\n`;
-    message += `✨ *YERO SHOP!* ✨\n`;
-    message += `"La tienda online hecha a tu medida"\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `📍 *Ubicación:* Santiago de Cuba, Cuba\n`;
-    message += `📱 *WhatsApp:* ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'}\n`;
-    message += `🌐 *Tienda Online:* https://yeroshop.vercel.app\n`;
-    message += `📧 *Email:* yero.shop@gmail.com\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    
-    // MENSAJE DE AGRADECIMIENTO FINAL
-    message += `🙏 *¡GRACIAS POR ELEGIR YERO SHOP!* 🙏\n`;
-    message += `💯 Tu satisfacción es nuestra prioridad\n`;
-    message += `⭐ Esperamos que disfrutes tu compra\n`;
-    message += `🔄 ¡Vuelve pronto por más ofertas!\n\n`;
-    
-    message += `🎉 *¡Que tengas un excelente día!* 🎉`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🏪 *INFORMACIÓN DE LA TIENDA*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🏪 *Yero Shop!*\n`;
+    message += `"La tienda online de compras hecha a tu medida" ✨\n`;
+    message += `📍 Santiago de Cuba, Cuba\n`;
+    message += `📱 WhatsApp: ${storeConfig.storeInfo?.whatsappNumber || '+53 54690878'}\n`;
+    message += `🌐 Tienda online: https://yeroshop.vercel.app\n\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `🙏 *MENSAJE DE AGRADECIMIENTO*\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `¡Gracias por confiar en nosotros! 🙏\n`;
+    message += `Su satisfacción es nuestra prioridad 💯\n`;
+    message += `═══════════════════════════════════════════════════════════════\n`;
+    message += `📸 Ver catálogo completo: https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png\n`;
+    message += `═══════════════════════════════════════════════════════════════`;
 
     // Generar URLs según el dispositivo
     const whatsappUrls = generateWhatsAppURL(message, storeConfig.storeInfo?.whatsappNumber || '+53 54690878');

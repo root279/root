@@ -17,14 +17,48 @@ const sign = require("jwt-encode");
 export const signupHandler = function (schema, request) {
   const { email, password, ...rest } = JSON.parse(request.requestBody);
   try {
-    // Validación básica de email - acepta cualquier formato válido
+    // Validación mejorada de email - acepta cualquier proveedor
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
         422,
         {},
         {
-          errors: ["Por favor ingresa un email válido."],
+          errors: ["Por favor ingresa un email válido de cualquier proveedor (Gmail, Yahoo, Hotmail, etc.)."],
+        }
+      );
+    }
+
+    // Validar que el dominio del email sea válido
+    const emailDomain = email.split('@')[1].toLowerCase();
+    const validDomains = [
+      // Proveedores principales
+      'gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com',
+      // Proveedores internacionales
+      'icloud.com', 'me.com', 'mac.com', 'aol.com', 'protonmail.com',
+      'yandex.com', 'mail.ru', 'qq.com', '163.com', 'sina.com',
+      // Proveedores empresariales
+      'company.com', 'business.com', 'corp.com', 'enterprise.com',
+      // Proveedores educativos
+      'edu', 'ac.uk', 'edu.cu', 'uo.edu.cu', 'uho.edu.cu',
+      // Proveedores cubanos
+      'nauta.cu', 'estudiantes.cu', 'infomed.sld.cu',
+      // Otros proveedores comunes
+      'zoho.com', 'fastmail.com', 'tutanota.com', 'gmx.com', 'web.de'
+    ];
+
+    // Permitir cualquier dominio que tenga al menos un punto y una extensión válida
+    const domainParts = emailDomain.split('.');
+    const hasValidStructure = domainParts.length >= 2 && 
+                             domainParts[domainParts.length - 1].length >= 2 &&
+                             domainParts[0].length >= 1;
+
+    if (!hasValidStructure) {
+      return new Response(
+        422,
+        {},
+        {
+          errors: ["El dominio del email no es válido. Usa un proveedor como Gmail, Yahoo, Hotmail, etc."],
         }
       );
     }

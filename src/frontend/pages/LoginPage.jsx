@@ -135,7 +135,7 @@ const LoginPage = () => {
           type='email'
           name='email'
           id='email'
-          placeholder='tu-email@ejemplo.com'
+          placeholder='tu-email@gmail.com, @yahoo.com, @hotmail.com...'
           value={userInputs.email}
           handleChange={handleUserInput}
           disabled={!!activeBtnLoader}
