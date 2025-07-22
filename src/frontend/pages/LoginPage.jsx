@@ -105,6 +105,8 @@ const LoginPage = () => {
       
       if (error?.response?.data?.errors && error.response.data.errors.length > 0) {
         errorText = error.response.data.errors[0];
+      } else if (error?.response?.data?.error) {
+        errorText = error.response.data.error;
       }
       
       toastHandler(ToastType.Error, errorText);
