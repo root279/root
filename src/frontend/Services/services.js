@@ -6,14 +6,12 @@ export const loginUserService = async (userData) => {
     ...userData,
   });
 
-  if (response.status === 200 || response.status === 201) {
-    const { encodedToken, foundUser } = response.data;
+  const { encodedToken, foundUser } = response.data;
 
-    return {
-      user: foundUser,
-      token: encodedToken,
-    };
-  }
+  return {
+    user: foundUser,
+    token: encodedToken,
+  };
 };
 
 export const signupService = async (userData) => {
