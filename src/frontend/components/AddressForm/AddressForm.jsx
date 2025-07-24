@@ -1,7 +1,8 @@
 import { SERVICE_TYPES, ToastType, COUNTRY_CODES } from '../../constants/constants';
 import { useConfigContext } from '../../contexts/ConfigContextProvider';
+import { useCurrencyContext } from '../../contexts/CurrencyContextProvider';
 import { useAllProductsContext } from '../../contexts/ProductsContextProvider';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import FormRow from '../FormRow';
 import Price from '../Price';
@@ -15,12 +16,13 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
     useAllProductsContext();
 
   const { storeConfig } = useConfigContext();
+  const { formatPriceWithCode } = useCurrencyContext();
   const SANTIAGO_ZONES = storeConfig.zones || [];
 
   const isEditing = !!isEditingAndData;
 
   // FUNCIÓN MEJORADA PARA VERIFICAR ENVÍO DISPONIBLE CON SINCRONIZACIÓN EN TIEMPO REAL
-  const hasShippingAvailableInCart = useCallback(() => {
+  const hasShippingAvailableInCart = () => {
     // 1. Obtener productos actualizados desde localStorage (configuración del admin)
     const savedConfig = localStorage.getItem('adminStoreConfig');
     let adminProducts = [];
@@ -52,7 +54,7 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
       console.log(`⚠️ Producto ${cartItem.name}: usando datos del carrito = ${cartItem.isShippingAvailable}`);
       return cartItem.isShippingAvailable === true;
     });
-  }, [cart]);
+  };
 
   // ESTADO REACTIVO PARA DETECTAR CAMBIOS EN TIEMPO REAL
   const [canUseHomeDelivery, setCanUseHomeDelivery] = useState(false);

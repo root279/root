@@ -17,33 +17,14 @@ const sign = require("jwt-encode");
 export const signupHandler = function (schema, request) {
   const { email, password, ...rest } = JSON.parse(request.requestBody);
   try {
-    // Validación mejorada de email - acepta cualquier proveedor
+    // Validación básica de email - acepta cualquier formato válido
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return new Response(
         422,
         {},
         {
-          errors: ["Por favor ingresa un email válido de cualquier proveedor (Gmail, Yahoo, Hotmail, etc.)."],
-        }
-      );
-    }
-
-    // Validar que el dominio del email sea válido
-    const emailDomain = email.split('@')[1].toLowerCase();
-
-    // Permitir cualquier dominio que tenga al menos un punto y una extensión válida
-    const domainParts = emailDomain.split('.');
-    const hasValidStructure = domainParts.length >= 2 && 
-                             domainParts[domainParts.length - 1].length >= 2 &&
-                             domainParts[0].length >= 1;
-
-    if (!hasValidStructure) {
-      return new Response(
-        422,
-        {},
-        {
-          errors: ["El dominio del email no es válido. Usa un proveedor como Gmail, Yahoo, Hotmail, etc."],
+          errors: ["Por favor ingresa un email válido."],
         }
       );
     }

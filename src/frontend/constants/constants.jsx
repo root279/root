@@ -1,5 +1,6 @@
 import { AiFillLinkedin, AiOutlineTwitter } from 'react-icons/ai';
 import { MdOutlineFacebook } from 'react-icons/md';
+import { v4 as uuid } from 'uuid';
 
 export const FOOTER_LINKS = [
   {
@@ -39,17 +40,6 @@ export const TEST_USER = {
   email: 'yero.shop@gmail.com',
   password: 'yeroi1234',
 };
-
-// Lista de proveedores de email populares para referencia
-export const POPULAR_EMAIL_PROVIDERS = [
-  { name: 'Gmail', domain: 'gmail.com', icon: '📧', color: '#ea4335' },
-  { name: 'Yahoo', domain: 'yahoo.com', icon: '📮', color: '#6001d2' },
-  { name: 'Hotmail', domain: 'hotmail.com', icon: '📨', color: '#0078d4' },
-  { name: 'Outlook', domain: 'outlook.com', icon: '📩', color: '#0078d4' },
-  { name: 'iCloud', domain: 'icloud.com', icon: '☁️', color: '#007aff' },
-  { name: 'Proton', domain: 'protonmail.com', icon: '🔒', color: '#6d4aff' },
-  { name: 'Nauta', domain: 'nauta.cu', icon: '🇨🇺', color: '#d32f2f' },
-];
 
 export const SUPER_ADMIN = {
   email: 'admin@gadaelectronics.com',
