@@ -1,0 +1,161 @@
+.storeLocationMap {
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  border: 2px solid var(--green-200);
+}
+
+.mapContainer {
+  width: 100%;
+  height: 250px;
+  border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+  overflow: hidden;
+}
+
+.mapContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.storeInfo {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--green-50), var(--green-100));
+  border-bottom: 1px solid var(--green-200);
+}
+
+.storeInfo h4 {
+  margin: 0 0 0.75rem 0;
+  color: var(--green-dark);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.storeInfo p {
+  margin: 0.5rem 0;
+  color: var(--green-dark);
+  font-weight: 500;
+  text-align: center;
+}
+
+.distanceInfo {
+  background: var(--white);
+  padding: 1rem;
+  border-radius: var(--borderRadius);
+  margin-top: 1rem;
+  border: 2px solid var(--green-300);
+  text-align: center;
+}
+
+.distance {
+  color: var(--primary-600);
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.travelTime {
+  color: var(--grey-600);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.actionButtons {
+  padding: 1.5rem;
+  background: var(--green-50);
+}
+
+.locationBtn {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+  transition: var(--transition);
+}
+
+.locationBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.directionsButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+.directionsBtn {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  background: linear-gradient(135deg, var(--green-medium), #0f5132);
+  transition: var(--transition);
+}
+
+.directionsBtn:hover {
+  background: linear-gradient(135deg, #0f5132, var(--green-medium));
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+}
+
+.instructions {
+  padding: 1.5rem;
+  background: var(--grey-50);
+  border-top: 1px solid var(--green-200);
+}
+
+.instructions h5 {
+  margin: 0 0 1rem 0;
+  color: var(--green-dark);
+  font-size: 1rem;
+}
+
+.instructions ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: var(--grey-700);
+}
+
+.instructions li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+@media screen and (max-width: 768px) {
+  .mapContainer {
+    height: 200px;
+  }
+
+  .storeInfo {
+    padding: 1rem;
+  }
+
+  .actionButtons {
+    padding: 1rem;
+  }
+
+  .directionsButtons {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .instructions {
+    padding: 1rem;
+  }
+
+  .instructions ul {
+    padding-left: 1rem;
+  }
+}
