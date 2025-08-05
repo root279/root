@@ -1,6 +1,6 @@
 import styles from './Hero.module.css';
 
-import jethalalBanner from '/lovepik.png';
+const jethalalBanner = '/lovepik.png';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '../../hooks';
 

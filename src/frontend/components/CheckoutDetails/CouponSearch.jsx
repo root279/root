@@ -24,7 +24,7 @@ const CouponSearch = ({ activeCoupon, updateActiveCoupon }) => {
   } = useAllProductsContext();
 
   const { storeConfig } = useConfigContext();
-  const { formatPriceWithCode, getCurrentCurrency } = useCurrencyContext();
+  const { formatPriceWithCode } = useCurrencyContext();
   const COUPONS = storeConfig.coupons || [];
 
   const isMobile = useIsMobile();
