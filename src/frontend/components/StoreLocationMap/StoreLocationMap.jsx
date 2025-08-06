@@ -124,21 +124,13 @@ const StoreLocationMap = () => {
       {/* Sección de ubicación del usuario */}
       <div className={styles.userLocationSection}>
         <div className={styles.locationActions}>
-          <button
-            type="button"
-            onClick={getUserLocation}
-            disabled={isLoadingLocation}
-            className={`btn btn-primary ${styles.locationBtn}`}
-          >
-            {isLoadingLocation ? (
-              <span className={styles.loading}>
-                <span className="loader-2"></span>
-                Obteniendo ubicación...
-              </span>
-            ) : (
-              '📍 Calcular Distancia desde mi Ubicaciónn'
-            )}
-          </button>
+          <div className={styles.storeImageContainer}>
+            <img 
+              src="https://f005.backblazeb2.com/file/120000/Yero+Shop/lovepik.png"
+              alt="Yero Shop Logo"
+              className={styles.storeImage}
+            />
+          </div>
         </div>
 
         {distance && (
