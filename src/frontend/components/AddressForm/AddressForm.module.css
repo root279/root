@@ -232,17 +232,6 @@
   margin-bottom: 0;
 }
 
-.storeLocationContainer {
-  margin-bottom: 1.5rem;
-}
-
-.storeLocationContainer h4 {
-  margin: 0 0 1rem 0;
-  color: var(--green-dark);
-  font-size: 1.1rem;
-  text-align: center;
-}
-
 .formBtnContainer {
   padding: 1.5rem 2rem;
   border-top: 2px solid var(--grey-200);
@@ -342,11 +331,6 @@
   }
 
   .deliverySection {
-    padding: 1rem;
-    margin: 0.5rem 0;
-  }
-
-  .pickupSection {
     padding: 1rem;
     margin: 0.5rem 0;
   }

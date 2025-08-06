@@ -5,6 +5,7 @@ import styles from './MessagesManager.module.css';
 
 const MessagesManager = () => {
   const [messages, setMessages] = useState({});
+  const [editingMessage, setEditingMessage] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -120,7 +121,7 @@ const MessagesManager = () => {
     } else {
       setMessages(defaultMessages);
     }
-  }, [defaultMessages]);
+  }, []);
 
   const saveMessages = (newMessages) => {
     setMessages(newMessages);

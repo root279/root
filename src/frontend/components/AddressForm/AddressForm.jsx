@@ -446,24 +446,20 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
               </div>
             </div>
           ) : (
-            <div className={styles.pickupSection}>
-              <div className={styles.storeLocationContainer}>
-                <h4>📍 Ubicación de Nuestra Tienda</h4>
-                <StoreLocationMap />
-              </div>
-              
-              <div className={styles.formGroup}>
-                <label htmlFor='additionalInfo'>💬 ¿Quieres aclararnos algo?</label>
-                <textarea
-                  name='additionalInfo'
-                  id='additionalInfo'
-                  className='form-textarea'
-                  placeholder='Información adicional sobre tu pedido (opcional)'
-                  value={inputs.additionalInfo}
-                  onChange={handleInputChange}
-                />
-              </div>
+           <div className={styles.pickupSection}>
+             <StoreLocationMap />
+            <div className={styles.formGroup}>
+              <label htmlFor='additionalInfo'>💬 ¿Quieres aclararnos algo?</label>
+              <textarea
+                name='additionalInfo'
+                id='additionalInfo'
+                className='form-textarea'
+                placeholder='Información adicional sobre tu pedido (opcional)'
+                value={inputs.additionalInfo}
+                onChange={handleInputChange}
+              />
             </div>
+           </div>
           )}
         </div>
 
