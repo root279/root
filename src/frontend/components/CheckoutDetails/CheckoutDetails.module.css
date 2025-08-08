@@ -7,7 +7,7 @@
 .checkoutHeader {
   background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
   color: var(--white);
-  padding: 2rem 1.5rem;
+  padding: 1rem 1rem;
   margin: -1.5rem -1.5rem 1.5rem -1.5rem;
   border-radius: var(--borderRadius) var(--borderRadius) 0 0;
   position: relative;
@@ -32,8 +32,8 @@
 
 .priceTitle {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 600;
   text-align: center;
   position: relative;
   z-index: 1;
@@ -44,62 +44,21 @@
 }
 
 .titleIcon {
-  font-size: 2rem;
-  animation: bounce 2s infinite;
+  font-size: 1.2rem;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-8px);
-  }
-  60% {
-    transform: translateY(-4px);
-  }
 }
 
 .titleText {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  background: linear-gradient(45deg, #ffffff, #f0f9ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  animation: textGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes textGlow {
-  from {
-    filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-  }
-  to {
-    filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));
-  }
+  font-weight: 600;
+  color: var(--white);
 }
 
 .titleUnderline {
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  width: 40px;
+  height: 2px;
+  background: var(--white);
   border-radius: 2px;
-  animation: underlineGlow 2s ease-in-out infinite alternate;
-}
-
-@keyframes underlineGlow {
-  from {
-    box-shadow: 0 0 5px rgba(255,255,255,0.5);
-    transform: scaleX(0.8);
-  }
-  to {
-    box-shadow: 0 0 15px rgba(255,255,255,0.9);
-    transform: scaleX(1.2);
-  }
 }
 
 .priceBreakdown {

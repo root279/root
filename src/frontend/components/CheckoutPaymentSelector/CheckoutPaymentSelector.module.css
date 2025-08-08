@@ -1,0 +1,278 @@
+/* Contenedor principal del selector de pago en checkout */
+.checkoutPaymentSelector {
+  background: var(--white);
+  border: 2px solid var(--grey-200);
+  border-radius: var(--borderRadius);
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow-2);
+}
+
+/* Header del selector */
+.selectorHeader {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.selectorHeader h3 {
+  margin: 0 0 0.25rem 0;
+  color: var(--primary-700);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.selectorHeader p {
+  margin: 0;
+  color: var(--grey-600);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Toggle de pago mejorado */
+.paymentToggle {
+  margin-bottom: 1rem;
+  background: var(--grey-50);
+  border-radius: var(--borderRadius);
+  padding: 1rem;
+  border: 1px solid var(--grey-200);
+}
+
+.toggleLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.toggleLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--grey-600);
+  transition: var(--transition);
+}
+
+.toggleLabel.active {
+  color: var(--primary-700);
+  font-weight: 700;
+}
+
+/* Switch compacto */
+.switchContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.switchInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  background: var(--grey-300);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid var(--grey-400);
+}
+
+.switchInput:checked + .switch {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+}
+
+.switchSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: 50%;
+  transition: var(--transition);
+  box-shadow: var(--shadow-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switchInput:checked + .switch .switchSlider {
+  transform: translateX(28px);
+}
+
+.switchIcon {
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+/* Información bancaria */
+.bankInfo {
+  background: var(--grey-50);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--borderRadius);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.bankInfoSection {
+  margin-bottom: 1rem;
+}
+
+.bankInfoSection h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--primary-700);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.bankDetails {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.bankItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: var(--white);
+  border-radius: var(--borderRadius);
+  border: 1px solid var(--grey-200);
+}
+
+.bankLabel {
+  font-weight: 600;
+  color: var(--primary-600);
+  font-size: 0.85rem;
+}
+
+.bankItem span:last-child {
+  font-weight: 500;
+  color: var(--grey-700);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+/* Instrucciones de transferencia */
+.instructionsSection {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--borderRadius);
+  padding: 1rem;
+}
+
+.instructionsSection h5 {
+  margin: 0 0 0.75rem 0;
+  color: var(--primary-700);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.instructionsSection ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: var(--grey-700);
+}
+
+.instructionsSection li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .checkoutPaymentSelector {
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+  }
+
+  .selectorHeader h3 {
+    font-size: 1rem;
+  }
+
+  .selectorHeader p {
+    font-size: 0.85rem;
+  }
+
+  .toggleLabels {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .toggleLabel {
+    font-size: 0.85rem;
+  }
+
+  .switch {
+    width: 50px;
+    height: 25px;
+  }
+
+  .switchSlider {
+    width: 20px;
+    height: 20px;
+    top: 1.5px;
+    left: 1.5px;
+  }
+
+  .switchInput:checked + .switch .switchSlider {
+    transform: translateX(23px);
+  }
+
+  .switchIcon {
+    font-size: 0.7rem;
+  }
+
+  .bankItem {
+    padding: 0.4rem;
+  }
+
+  .bankLabel {
+    font-size: 0.8rem;
+  }
+
+  .bankItem span:last-child {
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .checkoutPaymentSelector {
+    padding: 0.5rem;
+  }
+
+  .selectorHeader h3 {
+    font-size: 0.95rem;
+  }
+
+  .toggleLabel {
+    font-size: 0.8rem;
+  }
+
+  .switch {
+    width: 45px;
+    height: 22px;
+  }
+
+  .switchSlider {
+    width: 18px;
+    height: 18px;
+    top: 1px;
+    left: 1px;
+  }
+
+  .switchInput:checked + .switch .switchSlider {
+    transform: translateX(21px);
+  }
+
+  .switchIcon {
+    font-size: 0.6rem;
+  }
+}
