@@ -23,6 +23,8 @@ import Modal from './Modal/Modal';
 import Error from './Error/Error';
 import Loader from './Loader';
 import StoreLocationMap from './StoreLocationMap/StoreLocationMap';
+import PaymentMethodSelector from './PaymentMethodSelector/PaymentMethodSelector';
+import CheckoutPaymentSelector from './CheckoutPaymentSelector/CheckoutPaymentSelector';
 
 export {
   Navbar,
@@ -50,4 +52,6 @@ export {
   Error,
   Loader,
   StoreLocationMap,
+  PaymentMethodSelector,
+  CheckoutPaymentSelector,
 };

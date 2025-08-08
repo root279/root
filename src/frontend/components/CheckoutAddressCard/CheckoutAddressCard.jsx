@@ -1,5 +1,6 @@
 import { SERVICE_TYPES } from '../../constants/constants';
 import { useConfigContext } from '../../contexts/ConfigContextProvider';
+import Price from '../Price';
 import styles from './CheckoutAddressCard.module.css';
 
 const CheckoutAddressCard = ({
@@ -19,7 +20,7 @@ const CheckoutAddressCard = ({
     mobile,
     receiverName,
     receiverPhone,
-    additionalInfo 
+    additionalInfo,
   } = singleAddress;
 
   const isActiveAddress = addressId === activeAddressId;
@@ -50,6 +51,7 @@ const CheckoutAddressCard = ({
         )}
         
         <p><strong>Móvil contacto:</strong> {mobile}</p>
+        
       </label>
 
       <input
