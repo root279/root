@@ -369,13 +369,14 @@ export const STORE_MESSAGES = ${JSON.stringify(messages, null, 2)};
 
       // Agregar archivo de configuración JSON completo
       const savedConfig = localStorage.getItem('adminStoreConfig');
+      const savedMessages = localStorage.getItem('storeMessages');
       let fullConfig = {
         storeConfig,
         products,
         categories,
-        messages: JSON.parse(localStorage.getItem('storeMessages') || '{}'),
+        messages: savedMessages ? JSON.parse(savedMessages) : {},
         exportDate: new Date().toISOString(),
-        version: '2.0.0'
+        version: '2.1.0'
       };
 
       // Si hay configuración guardada, usarla
@@ -385,8 +386,9 @@ export const STORE_MESSAGES = ${JSON.stringify(messages, null, 2)};
           fullConfig = {
             ...fullConfig,
             ...parsedConfig,
+            messages: savedMessages ? JSON.parse(savedMessages) : fullConfig.messages,
             exportDate: new Date().toISOString(),
-            version: '2.0.0'
+            version: '2.1.0'
           };
         } catch (error) {
           console.error('Error al cargar configuración guardada:', error);
@@ -409,7 +411,7 @@ export const STORE_MESSAGES = ${JSON.stringify(messages, null, 2)};
       URL.revokeObjectURL(url);
       
       toastHandler(ToastType.Success, '🎉 Backup de Yero Shop exportado exitosamente');
-      toastHandler(ToastType.Info, 'Los archivos mantienen la estructura exacta con imágenes optimizadas');
+      toastHandler(ToastType.Info, 'Los archivos mantienen la estructura exacta con sincronización completa');
       
     } catch (error) {
       console.error('Error al exportar backup:', error);
@@ -450,7 +452,7 @@ export const STORE_MESSAGES = ${JSON.stringify(messages, null, 2)};
 
   return (
     <div className={styles.backupManager}>
-      <h2>🗂️ Sistema de Backup Completo - Yero Shop!</h2>
+      <h2>🗂️ Sistema de Backup Completo - <span className="yero-shop-text">Yero Shop!</span></h2>
       
       <div className={styles.infoSection}>
         <h3>ℹ️ Información del Sistema de Backup</h3>
@@ -500,8 +502,12 @@ export const STORE_MESSAGES = ${JSON.stringify(messages, null, 2)};
                 <li>📍 {stats.zones} zonas de entrega</li>
                 <li>📦 {stats.products} productos en catálogo (con imágenes 600x450px responsivas)</li>
                 <li>📂 {stats.categories} categorías disponibles (con imágenes 400x300px responsivas)</li>
-                <li>💬 {Object.keys(JSON.parse(localStorage.getItem('storeMessages') || '{}')).length} categorías de mensajes</li>
+                <li>💬 {Object.keys(JSON.parse(localStorage.getItem('storeMessages') || '{}')).length} categorías de mensajes sincronizados</li>
                 <li>💱 Sistema completo de monedas (CUP, USD, EUR, MLC)</li>
+                <li>🔄 Sincronización en tiempo real entre todas las secciones</li>
+                <li>💳 Configuración de métodos de pago por producto</li>
+                <li>🎫 Control de cupones por producto</li>
+                <li>⚙️ Configuración general de la tienda</li>
               </ul>
             </div>
             <button 
@@ -534,19 +540,19 @@ export const STORE_MESSAGES = ${JSON.stringify(messages, null, 2)};
           <div className={styles.step}>
             <span className={styles.stepNumber}>2</span>
             <div className={styles.stepContent}>
-              <strong>Verificar cambios:</strong> Los cambios se aplican automáticamente en la tienda en tiempo real con imágenes responsivas.
+              <strong>Verificar sincronización:</strong> Los cambios se sincronizan automáticamente entre todas las secciones del panel y se aplican en tiempo real en la tienda.
             </div>
           </div>
           <div className={styles.step}>
             <span className={styles.stepNumber}>3</span>
             <div className={styles.stepContent}>
-              <strong>Exportar backup:</strong> Haz clic en "Exportar Backup Completo" para generar los archivos actualizados con estructura exacta.
+              <strong>Exportar backup:</strong> Haz clic en "Exportar Backup Completo" para generar los archivos actualizados con sincronización completa.
             </div>
           </div>
           <div className={styles.step}>
             <span className={styles.stepNumber}>4</span>
             <div className={styles.stepContent}>
-              <strong>Aplicar cambios:</strong> Extrae los archivos del ZIP y reemplaza los archivos correspondientes en tu proyecto manteniendo la estructura.
+              <strong>Aplicar cambios:</strong> Extrae los archivos del ZIP y reemplaza los archivos correspondientes en tu proyecto. Todos los cambios están sincronizados.
             </div>
           </div>
         </div>

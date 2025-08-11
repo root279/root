@@ -122,6 +122,42 @@
   color: var(--green-medium);
 }
 
+.paymentInfo {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.paymentCash {
+  background: var(--green-light);
+  color: var(--green-dark);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--green-medium);
+}
+
+.paymentTransfer {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid #f59e0b;
+}
+
+.paymentBoth {
+  background: linear-gradient(135deg, var(--green-light), #fef3c7);
+  color: var(--grey-800);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-300);
+}
+
 .colorsContainer,
 .colorsContainerDefault {
   margin-top: 0.5rem;

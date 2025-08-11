@@ -97,6 +97,8 @@ const SingleProductPage = () => {
     stock,
     reviewCount,
     stars,
+    paymentType,
+    transferFeePercentage,
   } = singleProductData;
 
   const discountPercent = calculateDiscountPercent(price, originalPrice);
@@ -191,6 +193,20 @@ const SingleProductPage = () => {
         <div className={styles.row}>
           <span>Envío Disponible:</span>
           <p>{isShippingAvailable ? 'Sí' : 'No'}</p>
+        </div>
+
+        <div className={styles.row}>
+          <span>Métodos de Pago:</span>
+          <div className={styles.paymentMethods}>
+            {(paymentType === 'cash' || paymentType === 'both') && (
+              <span className={styles.paymentCash}>💰 Efectivo</span>
+            )}
+            {(paymentType === 'transfer' || paymentType === 'both') && (
+              <span className={styles.paymentTransfer}>
+                💳 Transferencia (+{transferFeePercentage || 5}%)
+              </span>
+            )}
+          </div>
         </div>
 
         <div className={styles.row}>

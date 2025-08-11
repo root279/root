@@ -23,12 +23,6 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
   // ESTADO REACTIVO PARA DETECTAR CAMBIOS EN TIEMPO REAL
   const [canUseHomeDelivery, setCanUseHomeDelivery] = useState(false);
 
-  // ESTADO PARA EL MÉTODO DE PAGO
-  const [paymentMethodData, setPaymentMethodData] = useState({
-    method: 'cash',
-    fee: 0,
-    total: 0
-  });
   // EFECTO PARA ACTUALIZAR EL ESTADO CUANDO CAMBIE EL CARRITO O LA CONFIGURACIÓN
   useEffect(() => {
     // FUNCIÓN MEJORADA PARA VERIFICAR ENVÍO DISPONIBLE CON SINCRONIZACIÓN EN TIEMPO REAL
@@ -86,11 +80,19 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
       setTimeout(updateShippingAvailability, 100);
     };
 
+    const handleAdminPanelSync = (event) => {
+      const { type } = event.detail;
+      if (type === 'products' || type === 'paymentconfig' || type === 'couponproducts') {
+        console.log('📡 Sincronización de panel admin detectada en AddressForm');
+        setTimeout(updateShippingAvailability, 100);
+      }
+    };
     // Agregar listeners para eventos de sincronización
     window.addEventListener('productsUpdated', handleProductsUpdate);
     window.addEventListener('productsConfigUpdated', handleProductsUpdate);
     window.addEventListener('forceStoreUpdate', handleConfigUpdate);
     window.addEventListener('adminConfigChanged', handleConfigUpdate);
+    window.addEventListener('adminPanelSync', handleAdminPanelSync);
 
     // Cleanup
     return () => {
@@ -98,6 +100,7 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
       window.removeEventListener('productsConfigUpdated', handleProductsUpdate);
       window.removeEventListener('forceStoreUpdate', handleConfigUpdate);
       window.removeEventListener('adminConfigChanged', handleConfigUpdate);
+      window.removeEventListener('adminPanelSync', handleAdminPanelSync);
     };
   }, [cart]); // Dependencia del carrito para reaccionar a cambios
 
@@ -112,16 +115,13 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
     receiverPhone: '',
     receiverCountryCode: '+53', // Cuba por defecto
     additionalInfo: '',
-    paymentMethod: 'cash',
-    bankTransferFee: 0,
-    totalWithPaymentMethod: 0,
   };
 
   const [inputs, setInputs] = useState(
     isEditing ? {
       ...isEditingAndData,
       countryCode: isEditingAndData.countryCode || '+53',
-      receiverCountryCode: isEditingAndData.receiverCountryCode || '+53',
+      receiverCountryCode: isEditingAndData.receiverCountryCode || '+53'
     } : defaultState
   );
 
@@ -241,7 +241,7 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
       receiverPhone: inputs.receiverPhone ? `${inputs.receiverCountryCode} ${inputs.receiverPhone}` : '',
       deliveryCost: inputs.serviceType === SERVICE_TYPES.HOME_DELIVERY 
         ? SANTIAGO_ZONES.find(zone => zone.id === inputs.zone)?.cost || 0
-        : 0,
+        : 0
     };
 
     if (isAdding) {
@@ -495,4 +495,5 @@ const AddressForm = ({ isAdding, isEditingAndData = null, closeForm }) => {
     </div>
   );
 };
+
 export default AddressForm;

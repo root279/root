@@ -120,6 +120,36 @@
   cursor: default;
 }
 
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.paymentCash {
+  background: var(--green-light);
+  color: var(--green-dark);
+  padding: 0.5rem 1rem;
+  border-radius: var(--borderRadius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--green-medium);
+  display: inline-block;
+  width: fit-content;
+}
+
+.paymentTransfer {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.5rem 1rem;
+  border-radius: var(--borderRadius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid #f59e0b;
+  display: inline-block;
+  width: fit-content;
+}
+
 .color .productContent hr {
   margin-bottom: 1rem;
 }

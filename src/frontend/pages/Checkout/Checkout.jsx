@@ -9,7 +9,6 @@ import {
   Title,
 } from '../../components';
 import CheckoutAddressCard from '../../components/CheckoutAddressCard/CheckoutAddressCard';
-import CheckoutPaymentSelector from '../../components/CheckoutPaymentSelector/CheckoutPaymentSelector';
 import styles from './Checkout.module.css';
 
 const Checkout = () => {
@@ -21,11 +20,6 @@ const Checkout = () => {
   const [activeAddressId, setActiveAddressId] = useState('');
   const [isCheckoutSuccess, setIsCheckoutSuccess] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [paymentMethodData, setPaymentMethodData] = useState({
-    method: 'cash',
-    fee: 0,
-    total: 0
-  });
 
   const isCartEmpty = cartFromContext.length < 1;
 
@@ -45,10 +39,6 @@ const Checkout = () => {
 
   const handleSelect = (addressIdClicked) => {
     setActiveAddressId(addressIdClicked);
-  };
-
-  const handlePaymentMethodChange = (paymentData) => {
-    setPaymentMethodData(paymentData);
   };
 
   const updateCheckoutStatus = ({ showSuccessMsg }) => {
@@ -76,12 +66,6 @@ const Checkout = () => {
 
       <Title>Finalizar Compra</Title>
 
-      {/* Selector de Método de Pago - Movido fuera y reorganizado */}
-      <CheckoutPaymentSelector 
-        onPaymentMethodChange={handlePaymentMethodChange}
-        selectedMethod={paymentMethodData.method}
-      />
-
       <div className={styles.checkoutPage}>
         <section>
           <h3>Elige una dirección de entrega</h3>
@@ -104,7 +88,6 @@ const Checkout = () => {
 
         <CheckoutDetails
           activeAddressId={activeAddressId}
-          paymentMethodData={paymentMethodData}
           updateCheckoutStatus={updateCheckoutStatus}
           timer={timer}
         />

@@ -318,7 +318,7 @@ export const CURRENCIES = {
     name: 'Dólar Estadounidense',
     symbol: '$',
     flag: '🇺🇸',
-    rate: 395,
+    rate: 398,
   },
   EUR: {
     code: 'EUR',
@@ -332,8 +332,22 @@ export const CURRENCIES = {
     name: 'Moneda Libremente Convertible',
     symbol: 'MLC',
     flag: '🏦',
-    rate: 220,
+    rate: 210,
   },
 };
 
 export const DEFAULT_CURRENCY = 'CUP';
+
+// TIPOS DE PAGO
+export const PAYMENT_TYPES = {
+  CASH: 'cash',
+  TRANSFER: 'transfer',
+  BOTH: 'both'
+};
+
+// CONFIGURACIÓN DE TRANSFERENCIA BANCARIA
+export const TRANSFER_CONFIG = {
+  DEFAULT_FEE_PERCENTAGE: 5, // 5% por defecto
+  MIN_FEE_PERCENTAGE: 0,
+  MAX_FEE_PERCENTAGE: 20
+};
