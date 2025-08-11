@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useAuthContext } from '../../contexts/AuthContextProvider';
 import { Navigate } from 'react-router-dom';
 import ProductManager from './components/ProductManager';
@@ -18,12 +19,8 @@ const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('products');
   const [syncStatus, setSyncStatus] = useState({});
 
-  if (!isAdmin) {
-    return <Navigate to="/profile" replace />;
-  }
-
   // ESCUCHAR EVENTOS DE SINCRONIZACIÓN GLOBAL
-  React.useEffect(() => {
+  useEffect(() => {
     const handleAdminPanelSync = (event) => {
       const { type, data } = event.detail;
       console.log(`🔄 Sincronización global detectada en AdminPanel: ${type}`);
@@ -65,6 +62,11 @@ const AdminPanel = () => {
       window.removeEventListener('adminPanelSync', handleAdminPanelSync);
     };
   }, []);
+
+  if (!isAdmin) {
+    return <Navigate to="/profile" replace />;
+  }
+
   const tabs = [
     { id: 'products', label: '📦 Productos', component: ProductManager },
     { id: 'categories', label: '📂 Categorías', component: CategoryManager },
